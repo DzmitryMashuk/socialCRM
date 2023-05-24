@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    main
+
+    {% if not app.user %}
+        <div>
+            {{ include('security/login.html.twig', {'last_username': '', 'error': ''}) }}
+        </div>
+    {% endif %}
+
+{% endblock %}
