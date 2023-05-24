@@ -1,0 +1,63 @@
+version: '3'
+services:
+
+  #PHP Service
+  php-fpm-social:
+    container_name: php-fpm-${PROJECT_NAME}-container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    volumes:
+      - ./:/var/www
+      - .docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    networks:
+      - app-network
+
+  #Nginx Service
+  nginx-social:
+    container_name: nginx-${PROJECT_NAME}-container
+    image: nginx:alpine
+    volumes:
+      - ./:/var/www
+      - .docker/nginx/conf.d/:/etc/nginx/conf.d/
+    depends_on:
+      - php-fpm-social
+      - mysql-social
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+
+  #MySQL Service
+  mysql-social:
+    image: mysql:8.0.32
+    container_name: mysql-${PROJECT_NAME}-container
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      - .docker/mysql/my.cnf:/etc/mysql/my.cnf
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${MYSQL_PORT}:${MYSQL_PORT}"
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      SERVICE_NAME: ${DB_PASSWORD}
+    networks:
+      - app-network
+
+volumes:
+  mysql-volume:
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
