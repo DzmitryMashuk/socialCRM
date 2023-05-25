@@ -74,12 +74,16 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
+            $password = $form->get('password')->getData();
+            if ($user->getPassword() !== $password) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $password
+                    )
+                );
+            }
+
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);

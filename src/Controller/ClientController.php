@@ -20,7 +20,7 @@ class ClientController extends AbstractController
     public function index(ClientRepository $clientRepository): Response
     {
         return $this->render('client/index.html.twig', [
-            'clients' => $clientRepository->findAll(),
+            'clients' => $clientRepository->findBy(['user' => $this->getUser()]),
         ]);
     }
 
@@ -32,6 +32,7 @@ class ClientController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $client->setUser($this->getUser());
             $clientRepository->save($client, true);
 
             return $this->redirectToRoute('client', [], Response::HTTP_SEE_OTHER);

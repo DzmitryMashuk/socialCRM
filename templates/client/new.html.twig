@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Client{% endblock %}
+{% block title %}Создание клиента{% endblock %}
 
 {% block body %}
-    <h1>Create new Client</h1>
+    <h1>Создание клиента</h1>
 
     {{ include('client/_form.html.twig') }}
 
-    <a href="{{ path('client') }}">back to list</a>
+    <a href="{{ path('client') }}">Назад</a>
 {% endblock %}

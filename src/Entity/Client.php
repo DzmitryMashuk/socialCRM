@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
@@ -37,7 +38,7 @@ class Client
     private ?string $guardian_phone = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
-    private User $user;
+    private UserInterface $user;
 
     public function getId(): ?int
     {
@@ -128,12 +129,12 @@ class Client
         return $this;
     }
 
-    public function getUser(): User
+    public function getUser(): UserInterface
     {
         return $this->user;
     }
 
-    public function setUser(User $user): self
+    public function setUser(UserInterface $user): self
     {
         $this->user = $user;
 
