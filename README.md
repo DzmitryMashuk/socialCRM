@@ -12,4 +12,4 @@ docker exec -it php-fpm-socialCRM-container bash
 
 composer install
 
-./bin/console doc:mig:mig
+bin/console doc:mig:mig
