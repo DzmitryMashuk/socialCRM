@@ -44,7 +44,11 @@ class ServiceCatalogController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'service_catalog_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ServiceCatalog $serviceCatalog, ServiceCatalogRepository $serviceCatalogRepository): Response
+    public function edit(
+        Request $request,
+        ServiceCatalog $serviceCatalog,
+        ServiceCatalogRepository $serviceCatalogRepository
+    ): Response
     {
         $form = $this->createForm(ServiceCatalogType::class, $serviceCatalog);
         $form->handleRequest($request);
@@ -61,8 +65,12 @@ class ServiceCatalogController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'service_catalog_delete', methods: ['GET'])]
-    public function delete(Request $request, ServiceCatalog $serviceCatalog, ServiceCatalogRepository $serviceCatalogRepository): Response
+    #[Route('/{id}/delete', name: 'service_catalog_delete', methods: ['GET'])]
+    public function delete(
+        Request $request,
+        ServiceCatalog $serviceCatalog,
+        ServiceCatalogRepository $serviceCatalogRepository
+    ): Response
     {
         $serviceCatalogRepository->remove($serviceCatalog, true);
         return $this->redirectToRoute('service_catalog', [], Response::HTTP_SEE_OTHER);

@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\ClientRepository;
+use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +23,8 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users'         => $userRepository->findAll(),
+            'currentUserId' => $this->getUser()->getId(),
         ]);
     }
 
@@ -55,10 +58,16 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(
+        User $user,
+        ClientRepository $clientRepository,
+        ServiceRepository $serviceRepository
+    ): Response
     {
         return $this->render('user/show.html.twig', [
-            'user' => $user,
+            'user'     => $user,
+            'clients'  => $clientRepository->findBy(['user' => $user]),
+            'services' => $serviceRepository->findBy(['user' => $user]),
         ]);
     }
 
@@ -95,13 +104,10 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'user_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'user_delete', methods: ['GET'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
-        }
-
+        $userRepository->remove($user, true);
         return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
     }
 }

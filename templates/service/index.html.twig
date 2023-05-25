@@ -9,6 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Работник</th>
+                <th>Услуга</th>
                 <th>Дата услуги</th>
                 <th>Причины</th>
                 <th>Действия</th>
@@ -18,11 +20,14 @@
         {% for service in services %}
             <tr>
                 <td>{{ service.id }}</td>
+                <td>{{ service.user.id }}</td>
+                <td>{{ service.serviceCatalog.name }}</td>
                 <td>{{ service.serviceDate ? service.serviceDate|date('Y-m-d') : '' }}</td>
                 <td>{{ service.note }}</td>
                 <td>
-                    <a href="{{ path('service_show', {'id': service.id}) }}">Показать</a>
                     <a href="{{ path('service_edit', {'id': service.id}) }}">Редактировать</a>
+                    <a href="{{ path('service_delete', {'id': service.id}) }}"
+                       onclick="return confirm('Вы уверены, что хотите удалить ?');">Удалить</a>
                 </td>
             </tr>
         {% else %}

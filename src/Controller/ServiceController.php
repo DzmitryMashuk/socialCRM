@@ -67,14 +67,6 @@ class ServiceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'service_show', methods: ['GET'])]
-    public function show(Service $service): Response
-    {
-        return $this->render('service/show.html.twig', [
-            'service' => $service,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'service_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
@@ -101,13 +93,10 @@ class ServiceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'service_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'service_delete', methods: ['GET'])]
     public function delete(Request $request, Service $service, ServiceRepository $serviceRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$service->getId(), $request->request->get('_token'))) {
-            $serviceRepository->remove($service, true);
-        }
-
+        $serviceRepository->remove($service, true);
         return $this->redirectToRoute('service', [], Response::HTTP_SEE_OTHER);
     }
 }

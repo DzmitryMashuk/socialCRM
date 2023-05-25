@@ -44,14 +44,6 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'client_show', methods: ['GET'])]
-    public function show(Client $client): Response
-    {
-        return $this->render('client/show.html.twig', [
-            'client' => $client,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'client_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
@@ -70,12 +62,10 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'client_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'client_delete', methods: ['GET'])]
     public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$client->getId(), $request->request->get('_token'))) {
-            $clientRepository->remove($client, true);
-        }
+        $clientRepository->remove($client, true);
 
         return $this->redirectToRoute('client', [], Response::HTTP_SEE_OTHER);
     }

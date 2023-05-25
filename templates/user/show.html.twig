@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Работник #{{ user.id }}</h1>
 
+    <a href="{{ path('user') }}">Назад</a>
+
     <table class="table">
         <tbody>
             <tr>
@@ -18,9 +20,68 @@
         </tbody>
     </table>
 
+    <h2>Гражданины</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Отчечтво</th>
+            <th>Фамилия</th>
+            <th>Возраст</th>
+            <th>Телефон</th>
+            <th>Имя опекуна</th>
+            <th>Телефон опекуна</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td>{{ client.id }}</td>
+                <td>{{ client.firstName }}</td>
+                <td>{{ client.middleName }}</td>
+                <td>{{ client.lastName }}</td>
+                <td>{{ client.age }}</td>
+                <td>{{ client.phone }}</td>
+                <td>{{ client.guardianName }}</td>
+                <td>{{ client.guardianPhone }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Клиенты не найдены!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Услуги</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Работник</th>
+            <th>Услуга</th>
+            <th>Дата услуги</th>
+            <th>Причины</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for service in services %}
+            <tr>
+                <td>{{ service.id }}</td>
+                <td>{{ service.user.id }}</td>
+                <td>{{ service.serviceCatalog.name }}</td>
+                <td>{{ service.serviceDate ? service.serviceDate|date('Y-m-d') : '' }}</td>
+                <td>{{ service.note }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Услуги не найдены!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
     <a href="{{ path('user') }}">Назад</a>
 
-    <a href="{{ path('user_edit', {'id': user.id}) }}">Редактировать</a>
-
-    {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

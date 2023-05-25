@@ -20,9 +20,9 @@ class ClientType extends AbstractType
             ->add('middle_name', TextType::class, ['label' => 'Отчество'])
             ->add('last_name', TextType::class, ['label' => 'Фамилия'])
             ->add('age', IntegerType::class, ['label' => 'Возраст'])
-            ->add('phone', TextType::class, ['label' => 'Телефон'])
-            ->add('guardian_name', TextType::class, ['label' => 'Имя опекуна'])
-            ->add('guardian_phone', TextType::class, ['label' => 'Телефон опекуна'])
+            ->add('phone', TextType::class, ['label' => 'Телефон', 'required' => false])
+            ->add('guardian_name', TextType::class, ['label' => 'Имя опекуна', 'required' => false])
+            ->add('guardian_phone', TextType::class, ['label' => 'Телефон опекуна', 'required' => false])
         ;
     }
 
