@@ -59,7 +59,7 @@
         <thead>
         <tr>
             <th>Id</th>
-            <th>Работник</th>
+            <th>Гражданин</th>
             <th>Услуга</th>
             <th>Дата услуги</th>
             <th>Причины</th>
@@ -69,7 +69,8 @@
         {% for service in services %}
             <tr>
                 <td>{{ service.id }}</td>
-                <td>{{ service.user.id }}</td>
+                <td>{{ service.client.firstName }} {{ service.client.middleName }} {{ service.client.lastName }}
+                    #{{ service.client.id }} </td>
                 <td>{{ service.serviceCatalog.name }}</td>
                 <td>{{ service.serviceDate ? service.serviceDate|date('Y-m-d') : '' }}</td>
                 <td>{{ service.note }}</td>
