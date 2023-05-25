@@ -31,12 +31,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class, cascade: ['persist', 'remove'])]
     private $clients;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Service::class, cascade: ['persist', 'remove'])]
+    private $services;
 
     public function __construct()
     {
         $this->clients = new ArrayCollection();
+        $this->services = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,6 +109,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getClients(): Collection
     {
         return $this->clients;
+    }
+
+    /**
+     * @return Service[]
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
     }
 
     /**

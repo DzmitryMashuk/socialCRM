@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ClientRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -39,6 +41,14 @@ class Client
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
     private UserInterface $user;
+
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Service::class, cascade: ['persist', 'remove'])]
+    private $services;
+
+    public function __construct()
+    {
+        $this->services = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -139,5 +149,13 @@ class Client
         $this->user = $user;
 
         return $this;
+    }
+
+    /**
+     * @return Service[]
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
     }
 }

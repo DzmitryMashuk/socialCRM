@@ -48,7 +48,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/new.html.twig', [
+        return $this->render('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
@@ -89,7 +89,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/edit.html.twig', [
+        return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);

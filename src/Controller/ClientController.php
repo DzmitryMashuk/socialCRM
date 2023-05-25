@@ -38,7 +38,7 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('client', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('client/new.html.twig', [
+        return $this->render('client/new.html.twig', [
             'client' => $client,
             'form' => $form,
         ]);
@@ -64,7 +64,7 @@ class ClientController extends AbstractController
             return $this->redirectToRoute('client', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('client/edit.html.twig', [
+        return $this->render('client/edit.html.twig', [
             'client' => $client,
             'form' => $form,
         ]);

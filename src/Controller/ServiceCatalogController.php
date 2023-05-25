@@ -37,7 +37,7 @@ class ServiceCatalogController extends AbstractController
             return $this->redirectToRoute('service_catalog', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('service_catalog/new.html.twig', [
+        return $this->render('service_catalog/new.html.twig', [
             'service_catalog' => $serviceCatalog,
             'form' => $form,
         ]);
@@ -55,7 +55,7 @@ class ServiceCatalogController extends AbstractController
             return $this->redirectToRoute('service_catalog', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('service_catalog/edit.html.twig', [
+        return $this->render('service_catalog/edit.html.twig', [
             'service_catalog' => $serviceCatalog,
             'form' => $form,
         ]);

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ServiceCatalogRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServiceCatalogRepository::class)]
@@ -17,6 +19,14 @@ class ServiceCatalog
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $name = null;
+
+    #[ORM\OneToMany(mappedBy: 'serviceCatalog', targetEntity: Service::class, cascade: ['persist', 'remove'])]
+    private $services;
+
+    public function __construct()
+    {
+        $this->services = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -33,5 +43,13 @@ class ServiceCatalog
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return Service[]
+     */
+    public function getServices(): Collection
+    {
+        return $this->services;
     }
 }
