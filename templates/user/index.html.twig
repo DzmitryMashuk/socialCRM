@@ -24,9 +24,9 @@
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <a href="{{ path('user_show', {'id': user.id}) }}">Подробнее</a>
-                        <a href="{{ path('user_edit', {'id': user.id}) }}">Редактировать</a>
-                        <a href="{{ path('user_delete', {'id': user.id}) }}"
+                        <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-warning">Подробнее</a>
+                        <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-primary">Редактировать</a>
+                        <a href="{{ path('user_delete', {'id': user.id}) }}" class="btn btn-danger"
                            onclick="return confirm('Вы уверены, что хотите удалить ?');">Удалить</a>
                     </td>
                 </tr>
@@ -42,5 +42,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_create') }}">Создать работника</a>
+    <a href="{{ path('user_create') }}" class="btn btn-primary">Создать работника</a>
 {% endblock %}

@@ -1,4 +1,10 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Сохранить') }}</button>
-{{ form_end(form) }}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 my-4">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-success">{{ button_label|default('Сохранить') }}</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>

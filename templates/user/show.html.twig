@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Работник #{{ user.id }}</h1>
 
-    <a href="{{ path('user') }}">Назад</a>
+    <a href="{{ path('user') }}" class="btn btn-primary">Назад</a>
 
     <table class="table">
         <tbody>
@@ -83,6 +83,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user') }}">Назад</a>
-
+    <a href="{{ path('user') }}" class="btn btn-primary">Назад</a>
 {% endblock %}

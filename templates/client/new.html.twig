@@ -5,7 +5,9 @@
 {% block body %}
     <h1>Создание клиента</h1>
 
+    <a href="{{ path('client') }}" class="btn btn-primary">Назад</a>
+
     {{ include('client/_form.html.twig') }}
 
-    <a href="{{ path('client') }}">Назад</a>
+    <a href="{{ path('client') }}" class="btn btn-primary">Назад</a>
 {% endblock %}

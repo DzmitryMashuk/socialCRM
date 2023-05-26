@@ -5,7 +5,9 @@
 {% block body %}
     <h1>Создание работника</h1>
 
+    <a href="{{ path('user') }}" class="btn btn-primary">Назад</a>
+
     {{ include('user/_form.html.twig') }}
 
-    <a href="{{ path('user') }}">Назад</a>
+    <a href="{{ path('user') }}" class="btn btn-primary">Назад</a>
 {% endblock %}

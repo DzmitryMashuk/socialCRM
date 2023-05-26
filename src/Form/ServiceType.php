@@ -16,8 +16,15 @@ class ServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('serviceDate', DateType::class, ['label' => 'Дата Услуги', 'widget' => 'single_text'])
-            ->add('note', TextareaType::class, ['label' => 'Причины'])
+            ->add('serviceDate', DateType::class, [
+                'label'  => 'Дата Услуги',
+                'widget' => 'single_text',
+                'attr'   => ['class' => 'form-control my-2'],
+            ])
+            ->add('note', TextareaType::class, [
+                'label' => 'Причины',
+                'attr'  => ['class' => 'form-control my-2', 'placeholder' => 'Причины'],
+            ])
         ;
     }
 

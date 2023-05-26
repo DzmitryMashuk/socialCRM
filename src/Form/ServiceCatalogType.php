@@ -15,7 +15,10 @@ class ServiceCatalogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['label' => 'Название'])
+            ->add('name', TextType::class, [
+                'label' => 'Название',
+                'attr'  => ['class' => 'form-control my-2', 'placeholder' => 'Название']
+            ])
         ;
     }
 
