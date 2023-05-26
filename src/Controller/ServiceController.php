@@ -26,7 +26,7 @@ class ServiceController extends AbstractController
     ): Response
     {
         return $this->render('service/index.html.twig', [
-            'services'        => $serviceRepository->findAll(),
+            'services'        => $serviceRepository->findBy(['user' => $this->getUser()]),
             'clients'         => $clientRepository->findBy(['user' => $this->getUser()]),
             'serviceCatalogs' => $serviceCatalogRepository->findAll(),
         ]);

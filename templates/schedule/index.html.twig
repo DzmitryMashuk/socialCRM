@@ -17,6 +17,7 @@
         </tr>
         </thead>
         <tbody>
+        {% set visitDaysCounterTotal = 0 %}
         {% for client in clients %}
             <tr>
                 <td>{{ client.firstName }} {{ client.middleName }} {{ client.lastName }}</td>
@@ -31,13 +32,23 @@
                         {% endif %}
                     </td>
                 {% endfor %}
+                {% set visitDaysCounterTotal = visitDaysCounterTotal + visitDaysCounter %}
                 <td>{{ visitDaysCounter }}</td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">Граждане не найдены!</td>
+                <td colspan="{{ daysCount + 3 }}">Граждане не найдены!</td>
             </tr>
         {% endfor %}
+
+        {% if clients|length > 0 %}
+            <tr>
+                {% for i in 0 .. daysCount + 1 %}
+                    <th></th>
+                {% endfor %}
+                <th>{{ visitDaysCounterTotal }}</th>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
 
