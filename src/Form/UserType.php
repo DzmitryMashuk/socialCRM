@@ -18,20 +18,19 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Почта',
-                'attr'  => ['class' => 'form-control my-2', 'placeholder' => 'Почта'],
+                'attr'  => ['class' => 'form-control my-2', 'placeholder' => 'Почта', 'maxlength' => 180],
             ])
             ->add('password', TextType::class, [
                 'label'      => 'Пароль',
                 'empty_data' => '',
                 'required'   => false,
-                'attr'       => ['class' => 'form-control my-2', 'value' => '', 'placeholder' => 'Пароль'],
+                'attr'       => [
+                    'class' => 'form-control my-2',
+                    'value' => '',
+                    'placeholder' => 'Пароль',
+                    'maxlength' => 255,
+                ],
             ])
-//            ->add('weekends', TextType::class, [
-//                'label'      => 'Выходные <span class="small text-muted">(Пример: 1,2,7,8,15,16)</span>',
-//                'label_html' => true,
-//                'required'   => false,
-//                'attr'       => ['class' => 'form-control my-2', 'placeholder' => 'Выходные'],
-//            ])
         ;
     }
 
