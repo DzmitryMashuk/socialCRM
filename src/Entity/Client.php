@@ -45,6 +45,9 @@ class Client
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Service::class, cascade: ['persist', 'remove'])]
     private $services;
 
+    #[ORM\Column(type: 'json')]
+    private array $visit_days = [];
+
     public function __construct()
     {
         $this->services = new ArrayCollection();
@@ -157,5 +160,23 @@ class Client
     public function getServices(): Collection
     {
         return $this->services;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getVisitDays(): array
+    {
+        return $this->visit_days;
+    }
+
+    /**
+     * @param int[] $visit_days
+     */
+    public function setVisitDays(array $visit_days): self
+    {
+        $this->visit_days = $visit_days;
+
+        return $this;
     }
 }

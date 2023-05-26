@@ -3,6 +3,23 @@
         <div class="col-lg-6 my-4">
             {{ form_start(form) }}
                 {{ form_widget(form) }}
+
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div>
+                        <label for="visit_days">
+                            Дни посещений
+                            <div>
+                                <span class="small text-muted">
+                                    Выходные дни работника: {{ client.user.weekends|join(',') }}</span>
+                            </div>
+                            <div>
+                                <span class="small text-muted">(Пример: 1,2,7,8,15,16)</span>
+                            </div>
+                        </label>
+                        <input type="text" id="visit_days" name="visit_days" class="form-control my-2"
+                               placeholder="Дни посещений" value="{{ client.visitDays|join(',') }}">
+                    </div>
+                {% endif %}
                 <button class="btn btn-success">{{ button_label|default('Сохранить') }}</button>
             {{ form_end(form) }}
         </div>

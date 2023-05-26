@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Рассписание{% endblock %}
+
+{% block body %}
+
+    <h1>Рассписание</h1>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            {% for i in 0 .. daysCount %}
+                <th>{{ i }}</th>
+            {% endfor %}
+            <th>План</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td>{{ client.firstName }} {{ client.middleName }} {{ client.lastName }}</td>
+                {% set visitDaysCounter = 0 %}
+                {% for i in 0 .. daysCount %}
+                    <td>
+                        {% if i in client.user.weekends %}
+                            B
+                        {% elseif i in client.visitDays %}
+                            {% set visitDaysCounter = visitDaysCounter + 1 %}
+                            X
+                        {% endif %}
+                    </td>
+                {% endfor %}
+                <td>{{ visitDaysCounter }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Граждане не найдены!</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

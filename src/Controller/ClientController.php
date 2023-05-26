@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Entity\User;
 use App\Form\ClientType;
 use App\Repository\ClientRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,14 @@ class ClientController extends AbstractController
         ]);
     }
 
+    #[IsGranted('ROLE_ADMIN', statusCode: 423), Route('/all', name: 'client_admin', methods: ['GET'])]
+    public function adminIndex(ClientRepository $clientRepository): Response
+    {
+        return $this->render('client/admin/index.html.twig', [
+            'clients' => $clientRepository->findAll(),
+        ]);
+    }
+
     #[Route('/new', name: 'client_create', methods: ['GET', 'POST'])]
     public function create(Request $request, ClientRepository $clientRepository): Response
     {
@@ -33,6 +42,11 @@ class ClientController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $client->setUser($this->getUser());
+
+            $visitDays = $request->request->get('visit_days');
+            $visitDays = array_filter(explode(',', $visitDays), fn($v) => $v !== '');
+            $client->setVisitDays($visitDays);
+
             $clientRepository->save($client, true);
 
             return $this->redirectToRoute('client', [], Response::HTTP_SEE_OTHER);
@@ -51,9 +65,16 @@ class ClientController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $visitDays = $request->request->get('visit_days');
+            if (!is_null($visitDays)) {
+                $visitDays = array_filter(explode(',', $visitDays), fn($v) => $v !== '');
+                $client->setVisitDays($visitDays);
+            }
+
             $clientRepository->save($client, true);
 
-            return $this->redirectToRoute('client', [], Response::HTTP_SEE_OTHER);
+            $route = $this->isGranted(User::ROLE_ADMIN, $this->getUser()) ? 'client_admin' : 'client';
+            return $this->redirectToRoute($route, [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('client/edit.html.twig', [
@@ -66,7 +87,7 @@ class ClientController extends AbstractController
     public function delete(Request $request, Client $client, ClientRepository $clientRepository): Response
     {
         $clientRepository->remove($client, true);
-
-        return $this->redirectToRoute('client', [], Response::HTTP_SEE_OTHER);
+        $route = $this->isGranted(User::ROLE_ADMIN, $this->getUser()) ? 'client_admin' : 'client';
+        return $this->redirectToRoute($route, [], Response::HTTP_SEE_OTHER);
     }
 }

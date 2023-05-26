@@ -19,7 +19,6 @@ final class Version20230525134805 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE service DROP INDEX UNIQ_E19D9AD219EB6921, ADD INDEX IDX_E19D9AD219EB6921 (client_id)');
         $this->addSql('ALTER TABLE service DROP FOREIGN KEY FK_E19D9AD25A6D5F48');
         $this->addSql('DROP INDEX UNIQ_E19D9AD25A6D5F48 ON service');
@@ -33,7 +32,6 @@ final class Version20230525134805 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE service_catalog DROP FOREIGN KEY FK_D4A860DBED5CA9E6');
         $this->addSql('DROP INDEX IDX_D4A860DBED5CA9E6 ON service_catalog');
         $this->addSql('ALTER TABLE service_catalog DROP service_id');

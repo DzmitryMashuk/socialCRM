@@ -37,6 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Service::class, cascade: ['persist', 'remove'])]
     private $services;
 
+    #[ORM\Column(type: 'json')]
+    private array $weekends = [];
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();
@@ -126,5 +129,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getWeekends(): array
+    {
+        return $this->weekends;
+    }
+
+    /**
+     * @param int[] $weekends
+     */
+    public function setWeekends(array $weekends): self
+    {
+        $this->weekends = $weekends;
+
+        return $this;
     }
 }

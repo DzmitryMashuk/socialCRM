@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Работник #{{ user.id }}</h1>
 
-    <a href="{{ path('user') }}" class="btn btn-primary">Назад</a>
+    <a href="{{ path('user') }}" class="btn btn-primary mb-3">Назад</a>
 
-    <table class="table">
+    <table class="table table-bordered">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -17,11 +17,15 @@
                 <th>Почта</th>
                 <td>{{ user.email }}</td>
             </tr>
+            <tr>
+                <th>Выходные</th>
+                <td>{{ user.weekends|join(',') }}</td>
+            </tr>
         </tbody>
     </table>
 
     <h2>Гражданины</h2>
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>Id</th>
@@ -55,7 +59,7 @@
     </table>
 
     <h2>Услуги</h2>
-    <table class="table">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th>Id</th>

@@ -46,6 +46,11 @@ class UserController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+
+            $weekends = $request->request->get('weekends');;
+            $weekends = array_filter(explode(',', $weekends), fn($v) => $v !== '');
+            $user->setWeekends($weekends);
+
             $userRepository->save($user, true);
 
             return $this->redirectToRoute('user', [], Response::HTTP_SEE_OTHER);
@@ -79,19 +84,25 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $userPasswordHasher
     ): Response
     {
+        $oldPassword = $user->getPassword();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $form->get('password')->getData();
-            if ($user->getPassword() !== $password) {
+            if ($form->get('password')->getData() === '') {
+                $user->setPassword($oldPassword);
+            } else {
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
                         $user,
-                        $password
+                        $form->get('password')->getData()
                     )
                 );
             }
+
+            $weekends = $request->request->get('weekends');;
+            $weekends = array_filter(explode(',', $weekends), fn($v) => $v !== '');
+            $user->setWeekends($weekends);
 
             $userRepository->save($user, true);
 
