@@ -3,7 +3,7 @@
 {% block title %}Редактирование гражданина #{{ client.id }}{% endblock %}
 
 {% block body %}
-    <h1>Редактирование гражданина #{{ client.id }}</h1>
+    <h1 class="mt-5 mb-4">Редактирование гражданина #{{ client.id }}</h1>
 
     <a href="{{ is_granted('ROLE_ADMIN') ? path('client_admin') : path('client') }}" class="btn btn-primary">Назад</a>
 
