@@ -5,10 +5,12 @@
 {% block body %}
     <h1 class="mt-5 mb-4">Редактирование гражданина #{{ client.id }}</h1>
 
-    <a href="{{ is_granted('ROLE_ADMIN') ? path('client_admin') : path('client') }}" class="btn btn-primary">Назад</a>
+    <a href="{{ refererUrl|default(is_granted('ROLE_ADMIN') ? path('client_admin') : path('client')) }}"
+       class="btn btn-primary mb-3">Назад</a>
 
     {{ include('client/_form.html.twig', {'button_label': 'Сохранить'}) }}
 
-    <a href="{{ is_granted('ROLE_ADMIN') ? path('client_admin') : path('client') }}" class="btn btn-primary">Назад</a>
+    <a href="{{ refererUrl|default(is_granted('ROLE_ADMIN') ? path('client_admin') : path('client')) }}"
+       class="btn btn-primary mb-3">Назад</a>
 
 {% endblock %}

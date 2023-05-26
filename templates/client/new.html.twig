@@ -5,9 +5,9 @@
 {% block body %}
     <h1 class="mt-5 mb-4">Создание гражданина</h1>
 
-    <a href="{{ path('client') }}" class="btn btn-primary">Назад</a>
+    <a href="{{ refererUrl|default(path('client')) }}" class="btn btn-primary mb-3">Назад</a>
 
     {{ include('client/_form.html.twig') }}
 
-    <a href="{{ path('client') }}" class="btn btn-primary">Назад</a>
+    <a href="{{ refererUrl|default(path('client')) }}" class="btn btn-primary mb-3">Назад</a>
 {% endblock %}

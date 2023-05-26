@@ -53,8 +53,9 @@ class ClientController extends AbstractController
         }
 
         return $this->render('client/new.html.twig', [
-            'client' => $client,
-            'form' => $form,
+            'client'     => $client,
+            'form'       => $form,
+            'refererUrl' => $request->headers->get('referer'),
         ]);
     }
 
@@ -78,8 +79,9 @@ class ClientController extends AbstractController
         }
 
         return $this->render('client/edit.html.twig', [
-            'client' => $client,
-            'form' => $form,
+            'client'     => $client,
+            'form'       => $form,
+            'refererUrl' => $request->headers->get('referer'),
         ]);
     }
 

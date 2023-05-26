@@ -5,7 +5,7 @@
 {% block body %}
     <h1 class="mt-5 mb-4">Работник #{{ user.id }}</h1>
 
-    <a href="{{ path('user') }}" class="btn btn-primary mb-3">Назад</a>
+    <a href="{{ refererUrl|default(path('user')) }}" class="btn btn-primary mb-3">Назад</a>
 
     <table class="table table-bordered">
         <tbody>
@@ -41,7 +41,7 @@
         <tbody>
         {% for client in clients %}
             <tr>
-                <td>{{ client.id }}</td>
+                <td><a href="{{ path('client_edit', {id: client.id}) }}">{{ client.id }}</a></td>
                 <td>{{ client.firstName }}</td>
                 <td>{{ client.middleName }}</td>
                 <td>{{ client.lastName }}</td>
@@ -87,5 +87,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user') }}" class="btn btn-primary">Назад</a>
+    <a href="{{ refererUrl|default(path('user')) }}" class="btn btn-primary mb-3">Назад</a>
 {% endblock %}

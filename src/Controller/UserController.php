@@ -57,22 +57,25 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form,
+            'user'       => $user,
+            'form'       => $form,
+            'refererUrl' => $request->headers->get('referer'),
         ]);
     }
 
     #[Route('/{id}', name: 'user_show', methods: ['GET'])]
     public function show(
+        Request $request,
         User $user,
         ClientRepository $clientRepository,
         ServiceRepository $serviceRepository
     ): Response
     {
         return $this->render('user/show.html.twig', [
-            'user'     => $user,
-            'clients'  => $clientRepository->findBy(['user' => $user]),
-            'services' => $serviceRepository->findBy(['user' => $user]),
+            'user'       => $user,
+            'clients'    => $clientRepository->findBy(['user' => $user]),
+            'services'   => $serviceRepository->findBy(['user' => $user]),
+            'refererUrl' => $request->headers->get('referer'),
         ]);
     }
 
@@ -110,8 +113,9 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form,
+            'user'       => $user,
+            'form'       => $form,
+            'refererUrl' => $request->headers->get('referer'),
         ]);
     }
 

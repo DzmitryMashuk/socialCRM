@@ -39,7 +39,8 @@ class ServiceCatalogController extends AbstractController
 
         return $this->render('service_catalog/new.html.twig', [
             'service_catalog' => $serviceCatalog,
-            'form' => $form,
+            'form'            => $form,
+            'refererUrl'      => $request->headers->get('referer'),
         ]);
     }
 
@@ -61,7 +62,8 @@ class ServiceCatalogController extends AbstractController
 
         return $this->render('service_catalog/edit.html.twig', [
             'service_catalog' => $serviceCatalog,
-            'form' => $form,
+            'form'            => $form,
+            'refererUrl'      => $request->headers->get('referer'),
         ]);
     }
 
