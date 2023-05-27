@@ -28,6 +28,8 @@
                 {% endif %}
             </ul>
             <a href="{{ path('logout') }}" class="nav-link ms-auto">Выйти</a>
+        {% else %}
+            <a href="{{ path('login') }}" class="nav-link ms-auto">Войти</a>
         {% endif %}
     </div>
 </nav>
