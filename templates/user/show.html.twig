@@ -7,7 +7,7 @@
 
     <a href="{{ refererUrl|default(path('user')) }}" class="btn btn-primary mb-3">Назад</a>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered table-light">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -25,7 +25,7 @@
     </table>
 
     <h2>Гражданины</h2>
-    <table class="table table-bordered">
+    <table class="table table-bordered table-light">
         <thead>
         <tr>
             <th>Id</th>
@@ -59,7 +59,19 @@
     </table>
 
     <h2>Услуги</h2>
-    <table class="table table-bordered">
+
+    <div>
+        <div class="w-25">
+            Дата услуги от
+            <input type="text" class="form-control my-2" placeholder="Дата услуги от">
+        </div>
+    </div>
+
+    <div class="mb-2">
+        <a href="#">Скачать</a>
+    </div>
+
+    <table class="table table-bordered table-light">
         <thead>
         <tr>
             <th>Id</th>
@@ -72,7 +84,7 @@
         <tbody>
         {% for service in services %}
             <tr>
-                <td>{{ service.id }}</td>
+                <td><a href="{{ path('service_catalog_edit', {id: service.id}) }}">{{ service.id }}</a></td>
                 <td>{{ service.client.firstName }} {{ service.client.middleName }} {{ service.client.lastName }}
                     #{{ service.client.id }} </td>
                 <td>{{ service.serviceCatalog.name }}</td>
