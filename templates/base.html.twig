@@ -8,13 +8,14 @@
 
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            <link href="{{ asset('css/style.css') }}" rel="stylesheet">
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body style="background-color: #d7d7d7">
+    <body>
         {{ include('header.html.twig') }}
         <div class="container">
             <div class="row">
