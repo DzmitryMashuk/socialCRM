@@ -1,3 +1,30 @@
 body {
     background-color: #d7d7d7
 }
+
+.service-catalog-container .select2-container,
+.client-container .select2-container,
+.service-catalog-group-container .select2-container {
+    margin: 0.5rem 0;
+}
+
+.service-catalog-container .select2-selection__arrow b,
+.client-container .select2-selection__arrow b,
+.service-catalog-group-container .select2-selection__arrow b {
+    display: none;
+}
+
+.service-catalog-container .select2-selection--single,
+.client-container .select2-selection--single,
+.service-catalog-group-container .select2-selection--single {
+    border: 1px solid #ced4da;
+    height: 38px;
+    padding: 0;
+}
+
+.service-catalog-container .select2-selection--single .select2-selection__rendered,
+.client-container .select2-selection--single .select2-selection__rendered,
+.service-catalog-group-container .select2-selection--single .select2-selection__rendered {
+    height: 38px;
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}

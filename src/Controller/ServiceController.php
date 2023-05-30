@@ -63,7 +63,7 @@ class ServiceController extends AbstractController
             'service'         => $service,
             'form'            => $form,
             'clients'         => $clientRepository->findBy(['user' => $this->getUser()]),
-            'serviceCatalogs' => $serviceCatalogRepository->findAll(),
+            'serviceCatalogs' => $serviceCatalogRepository->findBy([], ['serviceCatalogGroup' => 'ASC']),
             'refererUrl'      => $request->headers->get('referer'),
         ]);
     }
@@ -90,7 +90,7 @@ class ServiceController extends AbstractController
             'service'         => $service,
             'form'            => $form,
             'clients'         => $clientRepository->findBy(['user' => $this->getUser()]),
-            'serviceCatalogs' => $serviceCatalogRepository->findAll(),
+            'serviceCatalogs' => $serviceCatalogRepository->findBy([], ['serviceCatalogGroup' => 'ASC']),
             'refererUrl'      => $request->headers->get('referer'),
         ]);
     }
