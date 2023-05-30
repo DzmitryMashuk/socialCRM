@@ -71,11 +71,14 @@ class UserController extends AbstractController
         ServiceRepository $serviceRepository
     ): Response
     {
+        $serviceDate = $request->query->get('serviceDate');
+
         return $this->render('user/show.html.twig', [
-            'user'       => $user,
-            'clients'    => $clientRepository->findBy(['user' => $user]),
-            'services'   => $serviceRepository->findBy(['user' => $user]),
-            'refererUrl' => $request->headers->get('referer'),
+            'user'        => $user,
+            'clients'     => $clientRepository->findBy(['user' => $user]),
+            'services'    => $serviceRepository->findByUserAndServiceDate($user->getId(), $serviceDate),
+            'refererUrl'  => $request->headers->get('referer'),
+            'serviceDate' => $serviceDate,
         ]);
     }
 

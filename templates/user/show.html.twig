@@ -52,7 +52,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">Клиенты не найдены!</td>
+                <td colspan="8">Клиенты не найдены!</td>
             </tr>
         {% endfor %}
         </tbody>
@@ -60,11 +60,13 @@
 
     <h2>Услуги</h2>
 
-    <div>
-        <div class="w-25">
-            Дата услуги от
-            <input type="text" class="form-control my-2" placeholder="Дата услуги от">
-        </div>
+    <div class="my-2">
+        Дата услуги от
+        <form action="{{ path('user_show', {'id': user.id}) }}" class="w-25">
+            <input type="date" id="serviceDate" name="serviceDate" class="form-control my-2"
+                   value="{{ serviceDate }}" placeholder="Дата услуги от">
+            <button type="submit" class="btn btn-primary">Фильтр</button>
+        </form>
     </div>
 
     <div class="mb-2">
@@ -93,7 +95,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">Услуги не найдены!</td>
+                <td colspan="5">Услуги не найдены!</td>
             </tr>
         {% endfor %}
         </tbody>

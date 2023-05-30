@@ -40,4 +40,26 @@ class ServiceRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    /**
+     * @return Service[] Returns an array of Service objects
+     */
+    public function findByUserAndServiceDate(int $userId, ?string $serviceDate): array
+    {
+        $query = $this->createQueryBuilder('s')
+            ->andWhere('s.user = :userId')
+            ->setParameter('userId', $userId);
+
+        if ($serviceDate) {
+            $query
+                ->andWhere('s.serviceDate >= :val')
+                ->setParameter('val', $serviceDate);
+        }
+
+        $query->orderBy('s.id', 'ASC');
+
+        return $query
+            ->getQuery()
+            ->getResult();
+    }
 }
