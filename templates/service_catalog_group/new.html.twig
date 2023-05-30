@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создание группы услуги{% endblock %}
+
+{% block body %}
+    <h1 class="mt-5 mb-4">Создание группы услуги</h1>
+
+    <a href="{{ refererUrl|default(path('service_catalog_group')) }}" class="btn btn-primary mb-3">Назад</a>
+
+    {{ include('service_catalog_group/_form.html.twig') }}
+
+    <a href="{{ refererUrl|default(path('service_catalog_group')) }}" class="btn btn-primary mb-3">Назад</a>
+{% endblock %}

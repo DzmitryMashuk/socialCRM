@@ -17,11 +17,15 @@ class ServiceCatalog
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'serviceCatalog', targetEntity: Service::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'serviceCatalog', targetEntity: Service::class)]
     private $services;
+
+    #[ORM\ManyToOne(inversedBy: 'serviceCatalog')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ServiceCatalogGroup $serviceCatalogGroup = null;
 
     public function __construct()
     {
@@ -51,5 +55,17 @@ class ServiceCatalog
     public function getServices(): Collection
     {
         return $this->services;
+    }
+
+    public function getServiceCatalogGroup(): ?ServiceCatalogGroup
+    {
+        return $this->serviceCatalogGroup;
+    }
+
+    public function setServiceCatalogGroup(?ServiceCatalogGroup $serviceCatalogGroup): self
+    {
+        $this->serviceCatalogGroup = $serviceCatalogGroup;
+
+        return $this;
     }
 }
