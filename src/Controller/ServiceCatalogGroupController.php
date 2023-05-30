@@ -20,7 +20,7 @@ class ServiceCatalogGroupController extends AbstractController
     public function index(ServiceCatalogGroupRepository $serviceCatalogGroupRepository): Response
     {
         return $this->render('service_catalog_group/index.html.twig', [
-            'service_catalog_groups' => $serviceCatalogGroupRepository->findAll(),
+            'serviceCatalogGroups' => $serviceCatalogGroupRepository->findAll(),
         ]);
     }
 
@@ -38,9 +38,9 @@ class ServiceCatalogGroupController extends AbstractController
         }
 
         return $this->render('service_catalog_group/new.html.twig', [
-            'service_catalog_group' => $serviceCatalogGroup,
-            'form'                  => $form,
-            'refererUrl'            => $request->headers->get('referer'),
+            'serviceCatalogGroup' => $serviceCatalogGroup,
+            'form'                => $form,
+            'refererUrl'          => $request->headers->get('referer'),
         ]);
     }
 
@@ -61,9 +61,9 @@ class ServiceCatalogGroupController extends AbstractController
         }
 
         return $this->render('service_catalog_group/edit.html.twig', [
-            'service_catalog_group' => $serviceCatalogGroup,
-            'form'                  => $form,
-            'refererUrl'            => $request->headers->get('referer'),
+            'serviceCatalogGroup' => $serviceCatalogGroup,
+            'form'                => $form,
+            'refererUrl'          => $request->headers->get('referer'),
         ]);
     }
 

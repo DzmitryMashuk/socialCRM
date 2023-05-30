@@ -15,15 +15,15 @@
             </tr>
         </thead>
         <tbody>
-        {% for service_catalog_group in service_catalog_groups %}
+        {% for serviceCatalogGroup in serviceCatalogGroups %}
             <tr>
-                <td>{{ service_catalog_group.id }}</td>
-                <td>{{ service_catalog_group.name }}</td>
-                <td>{{ service_catalog_group.name }}</td>
+                <td>{{ serviceCatalogGroup.id }}</td>
+                <td>{{ serviceCatalogGroup.name }}</td>
+                <td>{{ serviceCatalogGroup.serviceCatalogs|map(s => s.name)|join(', ') }}</td>
                 <td>
-                    <a href="{{ path('service_catalog_group_edit', {'id': service_catalog_group.id}) }}"
+                    <a href="{{ path('service_catalog_group_edit', {'id': serviceCatalogGroup.id}) }}"
                        class="btn btn-primary">Редактировать</a>
-                    <a href="{{ path('service_catalog_group_delete', {'id': service_catalog_group.id}) }}"
+                    <a href="{{ path('service_catalog_group_delete', {'id': serviceCatalogGroup.id}) }}"
                        class="btn btn-danger"
                        onclick="return confirm('Вы уверены, что хотите удалить ?');">Удалить</a>
                 </td>
@@ -36,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('service_catalog_group_create') }}">Создать группу услуги</a>
+    <a href="{{ path('service_catalog_group_create') }}" class="btn btn-primary">Создать группу услуги</a>
 {% endblock %}

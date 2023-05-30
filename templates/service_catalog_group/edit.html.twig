@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Редактирование группы услуги #{{ service_catalog_group.id }}{% endblock %}
+{% block title %}Редактирование группы услуги #{{ serviceCatalogGroup.id }}{% endblock %}
 
 {% block body %}
-    <h1 class="mt-5 mb-4">Редактирование группы услуги #{{ service_catalog_group.id }}</h1>
+    <h1 class="mt-5 mb-4">Редактирование группы услуги #{{ serviceCatalogGroup.id }}</h1>
 
     <a href="{{ refererUrl|default(path('service_catalog_group')) }}" class="btn btn-primary mb-3">Назад</a>
 

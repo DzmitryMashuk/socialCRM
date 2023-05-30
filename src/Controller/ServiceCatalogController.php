@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Entity\ServiceCatalog;
 use App\Form\ServiceCatalogType;
+use App\Repository\ServiceCatalogGroupRepository;
 use App\Repository\ServiceCatalogRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,27 +21,36 @@ class ServiceCatalogController extends AbstractController
     public function index(ServiceCatalogRepository $serviceCatalogRepository): Response
     {
         return $this->render('service_catalog/index.html.twig', [
-            'service_catalogs' => $serviceCatalogRepository->findAll(),
+            'serviceCatalogs' => $serviceCatalogRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'service_catalog_create', methods: ['GET', 'POST'])]
-    public function create(Request $request, ServiceCatalogRepository $serviceCatalogRepository): Response
+    public function create(
+        Request $request,
+        ServiceCatalogRepository $serviceCatalogRepository,
+        ServiceCatalogGroupRepository $serviceCatalogGroupRepository
+    ): Response
     {
         $serviceCatalog = new ServiceCatalog();
         $form = $this->createForm(ServiceCatalogType::class, $serviceCatalog);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $serviceCatalogGroupId = $request->request->get('serviceCatalogGroupId');
+            $serviceCatalogGroup = $serviceCatalogGroupRepository->find($serviceCatalogGroupId);
+            $serviceCatalog->setServiceCatalogGroup($serviceCatalogGroup);
+
             $serviceCatalogRepository->save($serviceCatalog, true);
 
             return $this->redirectToRoute('service_catalog', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('service_catalog/new.html.twig', [
-            'service_catalog' => $serviceCatalog,
-            'form'            => $form,
-            'refererUrl'      => $request->headers->get('referer'),
+            'serviceCatalog'       => $serviceCatalog,
+            'serviceCatalogGroups' => $serviceCatalogGroupRepository->findAll(),
+            'form'                 => $form,
+            'refererUrl'           => $request->headers->get('referer'),
         ]);
     }
 
@@ -48,22 +58,28 @@ class ServiceCatalogController extends AbstractController
     public function edit(
         Request $request,
         ServiceCatalog $serviceCatalog,
-        ServiceCatalogRepository $serviceCatalogRepository
+        ServiceCatalogRepository $serviceCatalogRepository,
+        ServiceCatalogGroupRepository $serviceCatalogGroupRepository
     ): Response
     {
         $form = $this->createForm(ServiceCatalogType::class, $serviceCatalog);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $serviceCatalogGroupId = $request->request->get('serviceCatalogGroupId');
+            $serviceCatalogGroup = $serviceCatalogGroupRepository->find($serviceCatalogGroupId);
+            $serviceCatalog->setServiceCatalogGroup($serviceCatalogGroup);
+
             $serviceCatalogRepository->save($serviceCatalog, true);
 
             return $this->redirectToRoute('service_catalog', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('service_catalog/edit.html.twig', [
-            'service_catalog' => $serviceCatalog,
-            'form'            => $form,
-            'refererUrl'      => $request->headers->get('referer'),
+            'serviceCatalog'       => $serviceCatalog,
+            'serviceCatalogGroups' => $serviceCatalogGroupRepository->findAll(),
+            'form'                 => $form,
+            'refererUrl'           => $request->headers->get('referer'),
         ]);
     }
 
