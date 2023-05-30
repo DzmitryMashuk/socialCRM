@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Entity\ServiceCatalog;
+use App\Entity\User;
 use App\Form\ServiceCatalogType;
 use App\Repository\ServiceCatalogGroupRepository;
 use App\Repository\ServiceCatalogRepository;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_ADMIN', statusCode: 423), Route('/service/catalog')]
+#[IsGranted(User::ROLE_USER, statusCode: 423), Route('/service/catalog')]
 class ServiceCatalogController extends AbstractController
 {
     #[Route('/', name: 'service_catalog', methods: ['GET'])]

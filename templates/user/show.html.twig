@@ -70,7 +70,7 @@
     </div>
 
     <div class="mb-2">
-        <a href="#">Скачать</a>
+        <a href="{{ path('service_download_csv', {userId: user.id, serviceDate: serviceDate}) }}">Скачать</a>
     </div>
 
     <table class="table table-bordered table-light">
@@ -87,7 +87,7 @@
         {% for service in services %}
             <tr>
                 <td><a href="{{ path('service_catalog_edit', {id: service.id}) }}">{{ service.id }}</a></td>
-                <td>{{ service.client.firstName }} {{ service.client.middleName }} {{ service.client.lastName }}
+                <td>{{ service.client.getFullName() }}
                     #{{ service.client.id }} </td>
                 <td>{{ service.serviceCatalog.name }}</td>
                 <td>{{ service.serviceDate ? service.serviceDate|date('Y-m-d') : '' }}</td>

@@ -20,7 +20,7 @@
         {% for service in services %}
             <tr>
                 <td>{{ service.id }}</td>
-                <td>{{ service.client.firstName }} {{ service.client.middleName }} {{ service.client.lastName }}
+                <td>{{ service.client.getFullName() }}
                     #{{ service.client.id }} </td>
                 <td>{{ service.serviceCatalog.name }}</td>
                 <td>{{ service.serviceDate ? service.serviceDate|date('Y-m-d') : '' }}</td>

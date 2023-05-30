@@ -20,7 +20,7 @@
         {% set visitDaysCounterTotal = 0 %}
         {% for client in clients %}
             <tr>
-                <td>{{ client.firstName }} {{ client.middleName }} {{ client.lastName }}</td>
+                <td>{{ client.getFullName() }}</td>
                 {% set visitDaysCounter = 0 %}
                 {% for i in 0 .. daysCount %}
                     <td>

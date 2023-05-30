@@ -179,4 +179,9 @@ class Client
 
         return $this;
     }
+
+    public function getFullName(): string
+    {
+        return sprintf('%s %s %s', $this->getFirstName(), $this->getMiddleName(), $this->getLastName());
+    }
 }

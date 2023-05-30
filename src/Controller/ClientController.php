@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_USER', statusCode: 423), Route('/client')]
+#[IsGranted(User::ROLE_USER, statusCode: 423), Route('/client')]
 class ClientController extends AbstractController
 {
     #[Route('/', name: 'client', methods: ['GET'])]
@@ -25,7 +25,7 @@ class ClientController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_ADMIN', statusCode: 423), Route('/all', name: 'client_admin', methods: ['GET'])]
+    #[IsGranted(User::ROLE_ADMIN, statusCode: 423), Route('/all', name: 'client_admin', methods: ['GET'])]
     public function adminIndex(ClientRepository $clientRepository): Response
     {
         return $this->render('client/admin/index.html.twig', [

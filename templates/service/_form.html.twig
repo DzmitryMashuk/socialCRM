@@ -9,7 +9,7 @@
                 <select class="form-select" aria-label="Гражданин" id="client_id" name="client_id">
                     {% for client in clients %}
                         <option value="{{ client.id }}">
-                            {{ client.firstName }} {{ client.middleName }} {{ client.lastName }}
+                            {{ client.getFullName() }}
                         </option>
                     {% endfor %}
                 </select>
