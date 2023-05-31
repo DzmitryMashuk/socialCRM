@@ -109,7 +109,8 @@ class ServiceController extends AbstractController
     {
         $services =  $serviceRepository->findByUserAndServiceDate(
             (int)$request->query->get('userId'),
-            $request->query->get('serviceDate')
+            $request->query->get('serviceDateFrom'),
+            $request->query->get('serviceDateTo')
         );
 
         header('Content-type: text/csv');

@@ -44,16 +44,22 @@ class ServiceRepository extends ServiceEntityRepository
     /**
      * @return Service[] Returns an array of Service objects
      */
-    public function findByUserAndServiceDate(int $userId, ?string $serviceDate): array
+    public function findByUserAndServiceDate(int $userId, ?string $serviceDateFrom, ?string $serviceDateTo): array
     {
         $query = $this->createQueryBuilder('s')
             ->andWhere('s.user = :userId')
             ->setParameter('userId', $userId);
 
-        if ($serviceDate) {
+        if ($serviceDateFrom) {
             $query
-                ->andWhere('s.serviceDate >= :val')
-                ->setParameter('val', $serviceDate);
+                ->andWhere('s.serviceDate >= :serviceDateFrom')
+                ->setParameter('serviceDateFrom', $serviceDateFrom);
+        }
+
+        if ($serviceDateTo) {
+            $query
+                ->andWhere('s.serviceDate <= :serviceDateTo')
+                ->setParameter('serviceDateTo', $serviceDateTo);
         }
 
         $query->orderBy('s.id', 'ASC');

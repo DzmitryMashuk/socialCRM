@@ -61,16 +61,25 @@
     <h2>Услуги</h2>
 
     <div class="my-2">
-        Дата услуги от
-        <form action="{{ path('user_show', {'id': user.id}) }}" class="w-25">
-            <input type="date" id="serviceDate" name="serviceDate" class="form-control my-2"
-                   value="{{ serviceDate }}" placeholder="Дата услуги от">
+        <form action="{{ path('user_show', {'id': user.id}) }}">
+            <div class="d-flex">
+                <div class="me-3">
+                    Дата услуги от
+                    <input type="date" id="serviceDateFrom" name="serviceDateFrom" class="form-control my-2"
+                           value="{{ serviceDateFrom }}" placeholder="Дата услуги от">
+                </div>
+                <div>
+                    Дата услуги до
+                    <input type="date" id="serviceDateTo" name="serviceDateTo" class="form-control my-2"
+                           value="{{ serviceDateTo }}" placeholder="Дата услуги от">
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Фильтр</button>
         </form>
     </div>
 
     <div class="mb-2">
-        <a href="{{ path('service_download_csv', {userId: user.id, serviceDate: serviceDate}) }}">Скачать</a>
+        <a href="{{ path('service_download_csv', {userId: user.id, serviceDateFrom, serviceDateTo}) }}">Скачать</a>
     </div>
 
     <table class="table table-bordered table-light">
