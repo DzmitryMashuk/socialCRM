@@ -42,7 +42,7 @@ class Client
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'clients')]
     private UserInterface $user;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Service::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Service::class)]
     private $services;
 
     #[ORM\Column(type: 'json')]

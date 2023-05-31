@@ -31,10 +31,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $password = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Client::class, orphanRemoval: true)]
     private $clients;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Service::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Service::class, orphanRemoval: true)]
     private $services;
 
     #[ORM\Column(type: 'json')]
