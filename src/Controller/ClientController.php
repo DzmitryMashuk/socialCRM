@@ -44,8 +44,10 @@ class ClientController extends AbstractController
             $client->setUser($this->getUser());
 
             $visitDays = $request->request->get('visit_days');
-            $visitDays = array_filter(explode(',', $visitDays), fn($v) => $v !== '');
-            $client->setVisitDays($visitDays);
+            if (!is_null($visitDays)) {
+                $visitDays = array_filter(explode(',', $visitDays), fn($v) => $v !== '');
+                $client->setVisitDays($visitDays);
+            }
 
             $clientRepository->save($client, true);
 
